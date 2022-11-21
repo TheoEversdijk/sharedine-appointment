@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ThijsDeR/Microservice-Template.git"
+    "url": "git+https://github.com/TheoEversdijk/sharedine-appointment.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ThijsDeR/Microservice-Template/issues"
+    "url": "https://github.com/TheoEversdijk/sharedine-appointment/issues"
   },
-  "homepage": "https://github.com/ThijsDeR/Microservice-Template#readme",
+  "homepage": "https://github.com/TheoEversdijk/sharedine-appointment#readme",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
