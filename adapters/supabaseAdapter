@@ -15,7 +15,7 @@ export async function getAppointmentsFromSupabase() {
     else return data;
 }
 
-export async function writeAppointmentToSupabase(appointment) {
+export async function writeAppointmentsToSupabase(appointment) {
     console.log('sending data to supabase')
 
     const { data, error } = await supabase.from('appointments').insert(appointment)

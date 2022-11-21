@@ -1,4 +1,4 @@
-import { getAppointmentsFromSupabase, writeAppointmentToSupabase } from "../adapters/supabaseAdapter.js"
+import { getAppointmentsFromSupabase, writeAppointmentToSupabase } from '../adapters/supabaseAdapter.js';
 
 export async function getAppointments(req, res, next) {
     console.log('Get appointment')
@@ -6,10 +6,10 @@ export async function getAppointments(req, res, next) {
     res.json(getAppointmentsData)
 }
 
-export async function setAppointments(res, req, next) {
-    const appointment = {};
+// export async function setAppointments(res, req, next) {
+//     const appointment = {};
 
     
 
     
-}
+// }
