@@ -6,10 +6,10 @@ export async function getAppointments(req, res, next) {
     res.json(getAppointmentsData)
 }
 
-// export async function setAppointments(res, req, next) {
-//     const appointment = {};
+export async function setAppointments(res, req, next) {
+    const appointment = {};
 
     
 
     
-// }
+}
