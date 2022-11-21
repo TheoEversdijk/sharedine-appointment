@@ -1,0 +1,24 @@
+//connection with supabase
+// Initialize the JS client
+import { createClient } from '@supabase/supabase-js'
+
+const SUPABASE_URL = "https://aqhqsjxtyrvaagrxviyz.supabase.co"
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxaHFzanh0eXJ2YWFncnh2aXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjkwMzEzNDMsImV4cCI6MTk4NDYwNzM0M30.JYObsavfjlynYeax3yCsqpUUh7_eB6m7iKKZ9lt9Lig"
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+
+
+export async function getAppointmentsFromSupabase() {
+    console.log('Fetching data from supabase')
+    // return all data from the supabase appointments table
+    const { data, error } = await supabase.from('appointments').select('*')
+    if(error) console.error('query error', error);
+    else return data;
+}
+
+export async function writeAppointmentToSupabase(appointment) {
+    console.log('sending data to supabase')
+
+    const { data, error } = await supabase.from('appointments').insert(appointment)
+    if(error) console.error('query error', error);
+    else return data;
+}
