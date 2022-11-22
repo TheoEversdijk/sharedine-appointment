@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/', appointmentrouter);
 
-app.set('port', process.env.PORT || 5500);
+app.set('port', process.env.PORT || 3000);
 const server = app.listen(app.get('port'), () => {
   console.log(`🍿 Express running → PORT ${server.address().port}`);
 });

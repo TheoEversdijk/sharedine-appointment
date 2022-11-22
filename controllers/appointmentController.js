@@ -8,8 +8,5 @@ export async function getAppointments(req, res, next) {
 
 export async function setAppointments(res, req, next) {
     const appointment = {};
-
-    
-
     
 }

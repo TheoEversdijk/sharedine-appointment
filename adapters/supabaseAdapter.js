@@ -1,10 +1,8 @@
-//connection with supabase
-// Initialize the JS client
-import { createClient } from '@supabase/supabase-js'
+import * as dotenv from 'dotenv';
+import { createClient } from '@supabase/supabase-js';
+dotenv.config({ path: '.env' });
 
-const SUPABASE_URL = "https://aqhqsjxtyrvaagrxviyz.supabase.co"
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImFxaHFzanh0eXJ2YWFncnh2aXl6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE2NjkwMzEzNDMsImV4cCI6MTk4NDYwNzM0M30.JYObsavfjlynYeax3yCsqpUUh7_eB6m7iKKZ9lt9Lig"
-const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
+const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY)
 
 
 export async function getAppointmentsFromSupabase() {

@@ -4,7 +4,7 @@ const router = express.Router();
 
 // routes
 router.get('/', (req, res, next) => {
-  res.json('THE ONE PIECE IS REAL');
+  res.json('The one piece....');
 });
 
 router.get('/appointments', getAppointments);
