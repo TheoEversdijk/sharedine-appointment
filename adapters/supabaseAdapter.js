@@ -20,9 +20,34 @@ export async function getAppointmentsFromSupabase() {
 }
 
 export async function writeAppointmentsToSupabase(appointment) {
-    console.log('sending data to supabase')
-
-    const { data, error } = await supabase.from('appointments').insert(appointment)
-    if(error) console.error('query error', error);
-    else return data;
+    console.log('Appointment:', appointment.name);
+  const { data, error } = await supabase.from('appointments').insert([
+    {
+      name: appointment.name,
+      date: appointment.date,
+      time: appointment.time,
+    },
+  ]);
+  if (error) console.log('query error', error);
+  else return data;
 }
+
+export async function editAppointmentData(id, appointment) {
+  console.log('Appointment:', appointment.name);
+  const { data, error } = await supabase.from('appointments').update([
+    {
+      name: appointment.name,
+      date: appointment.date,
+      time: appointment.time,
+    },
+  ]).eq('id', id);
+  if (error) console.log('query error', error);
+  else return data;
+}
+
+export async function removeAppointmentData(id) {
+    console.log('removing id:', id);
+    const { data, error } = await supabase.from('appointments').delete().eq('id', id);
+    if (error) console.log('query error', error);
+    else return data;
+  }
