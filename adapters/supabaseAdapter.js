@@ -4,6 +4,12 @@ dotenv.config({ path: '.env' });
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY)
 
+export async function getSingleAppointmentFromSupabase(id) {
+    console.log('Fetching data from supabase')
+    const { data, error } = await supabase.from('appointments').select('*').eq('id', id);
+    if(error) console.error('query error', error);
+    else return data;
+}
 
 export async function getAppointmentsFromSupabase() {
     console.log('Fetching data from supabase')
