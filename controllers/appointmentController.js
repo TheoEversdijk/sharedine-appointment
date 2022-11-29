@@ -21,10 +21,14 @@ export async function getAppointments(req, res, next) {
 export async function setAppointments(req, res, next) {
     const appointment = {};
     const before = await getAppointmentsFromSupabase();
-    if (req.query.name && req.query.date && req.query.time) {
+    if (req.query.name && req.query.date && req.query.time && req.query.location && req.query.price && req.query.info) {
+      appointment.owner_id = req.query.owner_id;
       appointment.name = req.query.name;
       appointment.date = req.query.date;
       appointment.time = req.query.time;
+      appointment.location = req.query.location;
+      appointment.price = req.query.price;
+      appointment.info = req.query.info;
       await writeAppointmentsToSupabase(appointment)
       const rows = await getAppointmentsFromSupabase();
       if (rows.length >= before.length) {
@@ -51,10 +55,13 @@ export async function setAppointments(req, res, next) {
 
 export async function editAppointment(req, res, next) {
     const appointment = {};
-    if (req.query.name && req.query.date && req.query.time) {
+    if (req.query.name && req.query.date && req.query.time && req.query.location && req.query.price && req.query.info) {
       appointment.name = req.query.name;
       appointment.date = req.query.date;
       appointment.time = req.query.time;
+      appointment.location = req.query.location;
+      appointment.price = req.query.price;
+      appointment.info = req.query.info;
       await editAppointmentData(req.params.id, appointment)
       res.json({
         title: 'appointment editted',

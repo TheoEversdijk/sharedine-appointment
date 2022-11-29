@@ -23,9 +23,13 @@ export async function writeAppointmentsToSupabase(appointment) {
     console.log('Appointment:', appointment.name);
   const { data, error } = await supabase.from('appointments').insert([
     {
+      owner_id: appointment.owner_id,
       name: appointment.name,
       date: appointment.date,
       time: appointment.time,
+      location: appointment.location,
+      price: appointment.price,
+      information: appointment.info,
     },
   ]);
   if (error) console.log('query error', error);
@@ -39,6 +43,9 @@ export async function editAppointmentData(id, appointment) {
       name: appointment.name,
       date: appointment.date,
       time: appointment.time,
+      location: appointment.location,
+      price: appointment.price,
+      information: appointment.info,
     },
   ]).eq('id', id);
   if (error) console.log('query error', error);
