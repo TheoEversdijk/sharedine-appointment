@@ -52,6 +52,17 @@ export async function editAppointmentData(id, appointment) {
   else return data;
 }
 
+export async function editAppointmentMembers(id, member) {
+  console.log('Appointment:', member.members);
+  const { data, error } = await supabase.from('appointments').update([
+    {
+      members: [member.members],
+    },
+  ]).eq('id', id);
+  if (error) console.log('query error', error);
+  else return data;
+}
+
 export async function removeAppointmentData(id) {
     console.log('removing id:', id);
     const { data, error } = await supabase.from('appointments').delete().eq('id', id);

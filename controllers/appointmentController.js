@@ -2,7 +2,8 @@ import { getAppointmentsFromSupabase,
     getSingleAppointmentFromSupabase, 
     writeAppointmentsToSupabase, 
     editAppointmentData,
-    removeAppointmentData } from '../adapters/supabaseAdapter.js'
+    removeAppointmentData,
+    editAppointmentMembers } from '../adapters/supabaseAdapter.js'
 
 // Function that gets a single appointment from the database
 export async function getSingleAppointment(req, res, next) {
@@ -69,6 +70,20 @@ export async function editAppointment(req, res, next) {
       });
     }
   }
+
+  export async function registerForAppointment(req, res, next) {
+    const appointment = {};
+    if (req.query.members) {
+      appointment.members = req.query.members;
+      await editAppointmentMembers(req.params.id, appointment)
+      res.json({
+        title: 'appointment editted',
+        message: `Appointment ${appointment.members} has been added`,
+      });
+    }
+  }
+
+  
   
   export async function removeAppointment(req, res, next) {
     const id = req.params.id
@@ -81,3 +96,5 @@ export async function editAppointment(req, res, next) {
       res.status(500).json({ message: 'Cannot remove appointment' });
     }
   }
+
+
