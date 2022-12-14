@@ -19,6 +19,13 @@ export async function getAppointmentsFromSupabase() {
     else return data;
 }
 
+export async function getAppointmentIdFromSupabase(id, meal, date) {
+  console.log('Fetching data from supabase')
+  const { data, error } = await supabase.from('appointments').select('*').eq('id', id).eq('name', meal).eq('date', date);
+  if(error) console.error('query error', error);
+  else return data;
+}
+
 export async function writeAppointmentsToSupabase(appointment) {
     console.log('Appointment:', appointment.name);
   const { data, error } = await supabase.from('appointments').insert([

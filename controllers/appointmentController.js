@@ -3,7 +3,8 @@ import { getAppointmentsFromSupabase,
     writeAppointmentsToSupabase, 
     editAppointmentData,
     removeAppointmentData,
-    editAppointmentMembers } from '../adapters/supabaseAdapter.js'
+    editAppointmentMembers,
+    getAppointmentIdFromSupabase } from '../adapters/supabaseAdapter.js'
 
 // Function that gets a single appointment from the database
 export async function getSingleAppointment(req, res, next) {
@@ -17,6 +18,13 @@ export async function getAppointments(req, res, next) {
     console.log('Get appointment')
     const getAppointmentsData = await getAppointmentsFromSupabase();
     res.json(getAppointmentsData)
+}
+
+export async function getAppointmentId(req, res, next) {
+  console.log('Attempting to get the id of a single appointment')
+  const appointmentId = await getAppointmentIdFromSupabase(req.params.id, req.params.name, req.params.date);
+  console.log(appointmentId)
+  res.json(appointmentId)
 }
 
 export async function setAppointments(req, res, next) {
@@ -65,8 +73,8 @@ export async function editAppointment(req, res, next) {
       appointment.info = req.query.info;
       await editAppointmentData(req.params.id, appointment)
       res.json({
-        title: 'appointment editted',
-        message: `Appointment ${appointment.name} has been added`,
+        title: 'appointment edited',
+        message: `Appointment ${appointment.name} has been edit`,
       });
     }
   }
@@ -77,7 +85,7 @@ export async function editAppointment(req, res, next) {
       appointment.members = req.query.members;
       await editAppointmentMembers(req.params.id, appointment)
       res.json({
-        title: 'appointment editted',
+        title: 'appointment edited',
         message: `Appointment ${appointment.members} has been added`,
       });
     }

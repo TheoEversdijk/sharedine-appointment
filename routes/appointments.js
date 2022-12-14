@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAppointments, setAppointments, getSingleAppointment, editAppointment, removeAppointment, registerForAppointment } from '../controllers/appointmentController.js';
+import { getAppointments, setAppointments, getSingleAppointment, editAppointment, removeAppointment, registerForAppointment, getAppointmentId } from '../controllers/appointmentController.js';
 const router = express.Router();
 
 /**
@@ -24,6 +24,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/appointments/:id', getSingleAppointment);
+
+router.get('/appointments/getid', getAppointmentId);
 
 router.get('/appointments', getAppointments);
 
