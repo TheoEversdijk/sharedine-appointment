@@ -95,10 +95,8 @@ export async function editAppointment(req, res, next) {
   
   export async function removeAppointment(req, res, next) {
     const id = req.params.id
-    const before = await getAppointmentsFromSupabase();
-    await removeAppointmentData(req.params.id);
-    const after = await getAppointmentsFromSupabase();
-    if (before.length > after.length) {
+    const remove = await removeAppointmentData(req.params.id);
+    if (remove) {
       res.json({ message: `Removed ${id}` });
     } else {
       res.status(500).json({ message: 'Cannot remove appointment' });
