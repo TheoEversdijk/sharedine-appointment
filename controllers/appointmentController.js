@@ -29,7 +29,6 @@ export async function getAppointmentId(req, res, next) {
 
 export async function setAppointments(req, res, next) {
     const appointment = {};
-    const before = await getAppointmentsFromSupabase();
     if (req.query.name && req.query.date && req.query.time && req.query.location && req.query.price && req.query.info) {
       appointment.owner_id = req.query.owner_id;
       appointment.name = req.query.name;
@@ -38,12 +37,13 @@ export async function setAppointments(req, res, next) {
       appointment.location = req.query.location;
       appointment.price = req.query.price;
       appointment.info = req.query.info;
-      await writeAppointmentsToSupabase(appointment)
-      const rows = await getAppointmentsFromSupabase();
-      if (rows.length >= before.length) {
+      const write = await writeAppointmentsToSupabase(appointment)
+      console.log(write);
+      if (write) {
         res.json({
           title: 'appointment added',
           message: `Appointment ${appointment.name} has been added`,
+          id: write.id
         });
       } else {
         res.status(500);

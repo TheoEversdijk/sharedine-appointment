@@ -39,8 +39,9 @@ export async function writeAppointmentsToSupabase(appointment) {
       information: appointment.info,
     },
   ]);
+  const id = await supabase.from('appointments').select('id').eq('name', appointment.name).eq('owner_id', appointment.owner_id).eq('date', appointment.date);
   if (error) console.log('query error', error);
-  else return data;
+  else return id.data[0];
 }
 
 export async function editAppointmentData(id, appointment) {
