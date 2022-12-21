@@ -1,5 +1,6 @@
 import express from 'express';
-import { getAppointments, setAppointments, getSingleAppointment, editAppointment, removeAppointment, registerForAppointment, getAppointmentId } from '../controllers/appointmentController.js';
+import bodyParser from 'body-parser';
+import { getAppointments, setAppointments, getPersonalAppointments, editAppointment, removeAppointment, registerForAppointment } from '../controllers/appointmentController.js';
 const router = express.Router();
 
 /**
@@ -17,24 +18,18 @@ const router = express.Router();
   res.sendStatus(200);
 });
 
+const jsonParser = bodyParser.json()
 
+router.get('/', jsonParser, getAppointments);
 
-router.get('/', (req, res, next) => {
-  res.json('Connection with the appointment database has been made');
-});
+router.post('/', jsonParser, setAppointments);
 
-router.get('/appointments/:id', getSingleAppointment);
+router.get('/:id', jsonParser, getPersonalAppointments);
 
-router.get('/appointments/getid', getAppointmentId);
+router.put('/:id', jsonParser, editAppointment);
 
-router.get('/appointments', getAppointments);
+router.put('/:id/register', jsonParser, registerForAppointment)
 
-router.post('/appointments', setAppointments);
-
-router.put('/appointments/:id', editAppointment);
-
-router.put('/appointments/:id/register', registerForAppointment)
-
-router.delete('/appointments/:id', removeAppointment);
+router.delete('/:id', jsonParser, removeAppointment);
 
 export default router;

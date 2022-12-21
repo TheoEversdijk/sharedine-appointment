@@ -4,11 +4,18 @@ dotenv.config({ path: '.env' });
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_ANON_KEY)
 
-export async function getSingleAppointmentFromSupabase(id) {
+export async function getPersonalAppointmentsFromSupabase(id) {
     console.log('Fetching data from supabase')
-    const { data, error } = await supabase.from('appointments').select('*').eq('id', id);
+    const { data, error } = await supabase.from('appointments').select('*').eq('owner_id', id);
     if(error) console.error('query error', error);
     else return data;
+}
+
+export async function getJoinedAppointmentsFromSupabase(id) {
+  console.log('Fetching data from supabase')
+  const { data, error } = await supabase.from('appointments').select('*').contains('members', [id]);
+  if(error) console.error('query error', error);
+  else return data;
 }
 
 export async function getAppointmentsFromSupabase() {
@@ -19,9 +26,9 @@ export async function getAppointmentsFromSupabase() {
     else return data;
 }
 
-export async function getAppointmentIdFromSupabase(id, meal, date) {
+export async function getAppointmentIdFromSupabase(appointment) {
   console.log('Fetching data from supabase')
-  const { data, error } = await supabase.from('appointments').select('*').eq('id', id).eq('name', meal).eq('date', date);
+  const { data, error } = await supabase.from('appointments').select('*').eq('owner_id', appointment.owner_id).eq('name', appointment.name).eq('date', appointment.date);
   if(error) console.error('query error', error);
   else return data;
 }
@@ -39,9 +46,8 @@ export async function writeAppointmentsToSupabase(appointment) {
       information: appointment.info,
     },
   ]);
-  const id = await supabase.from('appointments').select('id').eq('name', appointment.name).eq('owner_id', appointment.owner_id).eq('date', appointment.date);
   if (error) console.log('query error', error);
-  else return id.data[0];
+  else return data;
 }
 
 export async function editAppointmentData(id, appointment) {
@@ -61,10 +67,10 @@ export async function editAppointmentData(id, appointment) {
 }
 
 export async function editAppointmentMembers(id, member) {
-  console.log('Appointment:', member.members);
+  console.log('Appointment:', member);
   const { data, error } = await supabase.from('appointments').update([
     {
-      members: [member.members],
+      members: [member],
     },
   ]).eq('id', id);
   if (error) console.log('query error', error);
