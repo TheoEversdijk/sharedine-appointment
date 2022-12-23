@@ -1,6 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import { getAppointments, setAppointments, getPersonalAppointments, editAppointment, removeAppointment, registerForAppointment } from '../controllers/appointmentController.js';
+import { getAppointments, setAppointments, getPersonalAppointments, editAppointment, removeAppointment, registerForAppointment, getSingleAppointment } from '../controllers/appointmentController.js';
 const router = express.Router();
 
 /**
@@ -25,6 +25,8 @@ router.get('/', jsonParser, getAppointments);
 router.post('/', jsonParser, setAppointments);
 
 router.get('/:id', jsonParser, getPersonalAppointments);
+
+router.get('/single/:id', jsonParser, getSingleAppointment);
 
 router.put('/:id', jsonParser, editAppointment);
 

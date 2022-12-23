@@ -5,7 +5,8 @@ import { getAppointmentsFromSupabase,
     editAppointmentData,
     removeAppointmentData,
     editAppointmentMembers,
-    getAppointmentIdFromSupabase } from '../adapters/supabaseAdapter.js'
+    getAppointmentIdFromSupabase,
+    getSingleAppointmentFromSupabase } from '../adapters/supabaseAdapter.js'
 
 // Function that gets a single appointment from the database
 export async function getPersonalAppointments(req, res) {
@@ -20,6 +21,14 @@ export async function getPersonalAppointments(req, res) {
       array.push(appointment);
     })
     res.json(array)
+}
+
+// Function that gets a single appointment from the database
+export async function getSingleAppointment(req, res, next) {
+  console.log(req.params)
+  console.log('Attempting to get a single appointment')
+  const response = await getSingleAppointmentFromSupabase(req.params.id);
+  res.json(response)
 }
 
 // Function that returns all the entries from the appointments table

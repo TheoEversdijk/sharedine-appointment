@@ -11,6 +11,13 @@ export async function getPersonalAppointmentsFromSupabase(id) {
     else return data;
 }
 
+export async function getSingleAppointmentFromSupabase(id) {
+  console.log('Fetching data from supabase')
+  const { data, error } = await supabase.from('appointments').select('*').eq('id', id);
+  if(error) console.error('query error', error);
+  else return data;
+}
+
 export async function getJoinedAppointmentsFromSupabase(id) {
   console.log('Fetching data from supabase')
   const { data, error } = await supabase.from('appointments').select('*').contains('members', [id]);
