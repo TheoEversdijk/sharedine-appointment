@@ -91,12 +91,20 @@ export async function editAppointment(req, res, next) {
   }
 
   export async function registerForAppointment(req, res, next) {
-    if (req.body.member) {
-      await editAppointmentMembers(req.params.id, req.body.member)
-      res.json({
-        title: 'Registered for Appointment',
-        message: `Appointment ${req.body.member} has been added`,
-      });
+    const appointment = await getSingleAppointmentFromSupabase(req.params.id);
+    console.log(appointment);
+    if (appointment.members.length < appointment.limit) {
+      if (req.body.member) {
+        let members = appointment.members
+        members.push(req.body.member)
+        await editAppointmentMembers(req.params.id, members)
+        res.json({
+          title: 'Registered for Appointment',
+          message: `Appointment ${req.body.member} has been added`,
+        });
+      }
+    } else {
+      res.status(304).json({ message: 'Cannot join Appointment' })
     }
   }
 

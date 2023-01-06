@@ -15,7 +15,7 @@ export async function getSingleAppointmentFromSupabase(id) {
   console.log('Fetching data from supabase')
   const { data, error } = await supabase.from('appointments').select('*').eq('id', id);
   if(error) console.error('query error', error);
-  else return data;
+  else return data[0];
 }
 
 export async function getJoinedAppointmentsFromSupabase(id) {
@@ -77,7 +77,7 @@ export async function editAppointmentMembers(id, member) {
   console.log('Appointment:', member);
   const { data, error } = await supabase.from('appointments').update([
     {
-      members: [member],
+      members: member,
     },
   ]).eq('id', id);
   if (error) console.log('query error', error);
