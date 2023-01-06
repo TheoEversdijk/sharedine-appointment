@@ -39,15 +39,16 @@ export async function getAppointments(req, res) {
 }
 export async function setAppointments(req, res) {
     const appointment = {};
-    if (req.body.name && req.body.date && req.body.time && req.body.location && req.body.price && req.body.info) {
+    if (req.body.name && req.body.date && req.body.time && req.body.limit && req.body.location && req.body.price && req.body.info) {
       appointment.owner_id = req.body.owner_id;
       appointment.name = req.body.name;
       appointment.date = req.body.date;
       appointment.time = req.body.time;
+      appointment.limit = req.body.limit;
       appointment.location = req.body.location;
       appointment.price = req.body.price;
       appointment.info = req.body.info;
-      const write = await writeAppointmentsToSupabase(appointment);
+      await writeAppointmentsToSupabase(appointment);
       const id = await getAppointmentIdFromSupabase(appointment);
       console.log(id);
       if (id) {
@@ -75,10 +76,11 @@ export async function setAppointments(req, res) {
 
 export async function editAppointment(req, res, next) {
     const appointment = {};
-    if (req.body.name && req.body.date && req.body.time && req.body.location && req.body.price && req.body.info) {
+    if (req.body.name && req.body.date && req.body.time && req.body.limit && req.body.location && req.body.price && req.body.info) {
       appointment.name = req.body.name;
       appointment.date = req.body.date;
       appointment.time = req.body.time;
+      appointment.limit = req.body.limit;
       appointment.location = req.body.location;
       appointment.price = req.body.price;
       appointment.info = req.body.info;
